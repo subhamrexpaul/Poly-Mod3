@@ -80,10 +80,14 @@ async function main() {
 
   // verify proof on contract
   //@ts-ignore
-  const tx = await verifier.verifyProof(pi_a, pi_b, pi_c, input)
+  const verificationResult = await verifier.verifyProof(pi_a, pi_b, pi_c, input)
   
-  console.log(`Verifier result: ${tx}`)
-  console.assert(tx == true, "Proof verification failed!");
+  if (verificationResult) {
+    console.log(`Proof verification successful! The circuit works as expected.`);
+  } else {
+    console.error(`Proof verification failed! The circuit did not produce the expected output.`);
+    process.exitCode = 1;
+  }
 
   process.exit(0);
 }

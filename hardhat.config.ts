@@ -10,6 +10,7 @@ process.env.BASE_PATH = __dirname;
 
 // tasks
 import "./tasks/newcircuit.ts"
+import 'dotenv/config';
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -22,6 +23,13 @@ const config: HardhatUserConfig = {
       }
     ]
   },
+  networks:{
+    mumbai: {
+      url: `https://rpc.ankr.com/polygon_mumbai`,
+      accounts: [process.env.PRIVATE_KEY]
+    }
+  },
+  
   circom: {
     // (optional) Base path for input files, defaults to `./circuits/`
     inputBasePath: "./circuits",
